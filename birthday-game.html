@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<!-- Previous head and style sections remain the same -->
+<head>
+    <!-- Previous styles remain unchanged -->
+    <style>
+        /* Previous styles remain unchanged */
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #ffdbf1;
+            font-family: Arial, sans-serif;
+        }
+        
+        #gameContainer {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        
+        #header {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 2em;
+            color: #ff4081;
+            text-shadow: 2px 2px 4px white;
+            z-index: 10;
+        }
+        
+        #yuppi {
+            position: absolute;
+            top: 80px;
+            width: 100%;
+            text-align: center;
+            font-size: 1.5em;
+            color: #ff69b4;
+            animation: bounce 1s infinite;
+        }
+        
+        .cat-container {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            transition: left 0.3s ease, top 0.3s ease;
+            cursor: pointer;
+            left: 50%;
+            top: 50%;
+        }
+        
+        #cake {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            cursor: grab;
+            user-select: none;
+            left: 100px;
+            top: 200px;
+        }
+        
+        #cake:active {
+            cursor: grabbing;
+        }
+        
+        #score {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #ff4081;
+        }
+        
+        #speed {
+            position: absolute;
+            top: 60px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            font-size: 1.2em;
+            color: #ff4081;
+        }
+        
+        #message {
+            position: absolute;
+            padding: 20px 30px;
+            background: #ff69b4;
+            border-radius: 20px;
+            color: white;
+            display: none;
+            animation: float 2s infinite;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            text-align: center;
+            font-size: 1.5em;
+            z-index: 100;
+        }
+        
+        .floating-text {
+            position: absolute;
+            color: #ff4081;
+            font-size: 1.2em;
+            pointer-events: none;
+            animation: float 1s forwards;
+            z-index: 50;
+            background: white;
+            padding: 5px 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="header">🎉 Happy Birthday Kiera! 🎉</div>
+        <div id="yuppi">✨ Yuppi Yuppi! ✨</div>
+        <div id="score">Cakes: 0/18</div>
+        <div id="speed">Speed: Normal</div>
+        <div class="cat-container">
+            <!-- Previous SVG cat remains unchanged -->
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+                <!-- Cat body -->
+                <ellipse cx="50" cy="60" rx="35" ry="30" fill="#808080"/>
+                <!-- Head -->
+                <circle cx="50" cy="40" r="25" fill="#808080"/>
+                <!-- Ears -->
+                <path d="M30 25 L40 40 L25 40 Z" fill="#808080"/>
+                <path d="M70 25 L60 40 L75 40 Z" fill="#808080"/>
+                <!-- Eyes -->
+                <ellipse cx="40" cy="35" rx="4" ry="6" fill="#FFE5B4"/>
+                <ellipse cx="60" cy="35" rx="4" ry="6" fill="#FFE5B4"/>
+                <ellipse cx="40" cy="35" rx="2" ry="4" fill="black"/>
+                <ellipse cx="60" cy="35" rx="2" ry="4" fill="black"/>
+                <!-- Nose -->
+                <path d="M47 45 L53 45 L50 48 Z" fill="pink"/>
+                <!-- Whiskers -->
+                <line x1="25" y1="45" x2="40" y2="47" stroke="white" stroke-width="1"/>
+                <line x1="25" y1="48" x2="40" y2="48" stroke="white" stroke-width="1"/>
+                <line x1="25" y1="51" x2="40" y2="49" stroke="white" stroke-width="1"/>
+                <line x1="75" y1="45" x2="60" y2="47" stroke="white" stroke-width="1"/>
+                <line x1="75" y1="48" x2="60" y2="48" stroke="white" stroke-width="1"/>
+                <line x1="75" y1="51" x2="60" y2="49" stroke="white" stroke-width="1"/>
+                <!-- Tail -->
+                <path d="M85 60 Q 90 40 80 50" fill="none" stroke="#808080" stroke-width="8"/>
+            </svg>
+        </div>
+        <div id="cake">
+            <!-- Previous SVG cake remains unchanged -->
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+                <!-- Cake base -->
+                <path d="M20 40 L80 40 L75 80 L25 80 Z" fill="#FFB6C1"/>
+                <!-- Frosting -->
+                <path d="M15 40 Q 50 30 85 40" fill="#FFC0CB" stroke="#FF69B4" stroke-width="2"/>
+                <!-- Candles -->
+                <rect x="35" y="20" width="4" height="20" fill="#FFD700"/>
+                <rect x="48" y="15" width="4" height="25" fill="#FFD700"/>
+                <rect x="61" y="20" width="4" height="20" fill="#FFD700"/>
+                <!-- Flames -->
+                <circle cx="37" cy="18" r="3" fill="#FF4500"/>
+                <circle cx="50" cy="13" r="3" fill="#FF4500"/>
+                <circle cx="63" cy="18" r="3" fill="#FF4500"/>
+                <!-- Decorations -->
+                <circle cx="30" cy="50" r="2" fill="#FF69B4"/>
+                <circle cx="45" cy="55" r="2" fill="#FF69B4"/>
+                <circle cx="60" cy="50" r="2" fill="#FF69B4"/>
+                <circle cx="70" cy="55" r="2" fill="#FF69B4"/>
+            </svg>
+        </div>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        const cat = document.querySelector('.cat-container');
+        const cake = document.getElementById('cake');
+        const message = document.getElementById('message');
+        const gameContainer = document.getElementById('gameContainer');
+        const scoreElement = document.getElementById('score');
+        const speedElement = document.getElementById('speed');
+        
+        let cakesEaten = 0;
+        let catSize = 80;
+        let baseSpeed = 2000; // Starting speed (2 seconds)
+        let currentSpeed = baseSpeed;
+        let isDragging = false;
+        let dragOffset = { x: 0, y: 0 };
+        
+        // Calculate speed based on cakes eaten
+        function calculateSpeed(cakes) {
+            if (cakes < 5) {
+                return baseSpeed; // Normal speed for first 5 cakes
+            } else if (cakes < 10) {
+                return baseSpeed * 0.8; // 20% faster
+            } else if (cakes < 14) {
+                return baseSpeed * 0.6; // 40% faster
+            } else if (cakes < 16) {
+                return baseSpeed * 0.4; // 60% faster
+            } else {
+                return baseSpeed * 0.25; // Very fast for last cakes
+            }
+        }
+
+        function updateSpeedIndicator(speed) {
+            let speedText = "Normal";
+            if (speed <= baseSpeed * 0.8) speedText = "Fast";
+            if (speed <= baseSpeed * 0.6) speedText = "Very Fast";
+            if (speed <= baseSpeed * 0.4) speedText = "Super Fast";
+            if (speed <= baseSpeed * 0.25) speedText = "Ultra Fast!";
+            speedElement.textContent = `Speed: ${speedText}`;
+        }
+
+        let messages = [
+            "Meow! Try to catch me! 😼",
+            "Too slow! Meeeow! 🐱",
+            "Nice try! Purrrr! 😸",
+            "That cake looks yummy! 😺",
+            "Almost got me! 😹"
+        ];
+
+        function randomPosition(element) {
+            const maxX = gameContainer.clientWidth - element.clientWidth;
+            const maxY = gameContainer.clientHeight - element.clientHeight;
+            return {
+                x: Math.random() * maxX,
+                y: Math.min(Math.random() * maxY, maxY - 100)
+            };
+        }
+
+        function moveCat() {
+            const pos = randomPosition(cat);
+            cat.style.left = pos.x + 'px';
+            cat.style.top = pos.y + 'px';
+            
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            showFloatingText(randomMessage, pos.x, pos.y - 30);
+            
+            setTimeout(moveCat, currentSpeed);
+        }
+
+        function showFloatingText(text, x, y) {
+            const floatingText = document.createElement('div');
+            floatingText.className = 'floating-text';
+            floatingText.style.left = x + 'px';
+            floatingText.style.top = y + 'px';
+            floatingText.innerHTML = text;
+            gameContainer.appendChild(floatingText);
+            
+            setTimeout(() => floatingText.remove(), 1000);
+        }
+
+        function resetCake() {
+            const pos = randomPosition(cake);
+            cake.style.left = pos.x + 'px';
+            cake.style.top = pos.y + 'px';
+        }
+
+        function checkCollision(rect1, rect2) {
+            return !(rect1.right < rect2.left || 
+                    rect1.left > rect2.right || 
+                    rect1.bottom < rect2.top || 
+                    rect1.top > rect2.bottom);
+        }
+
+        cake.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            cake.style.cursor = 'grabbing';
+            
+            const rect = cake.getBoundingClientRect();
+            dragOffset.x = e.clientX - rect.left;
+            dragOffset.y = e.clientY - rect.top;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                cake.style.left = (e.clientX - dragOffset.x) + 'px';
+                cake.style.top = (e.clientY - dragOffset.y) + 'px';
+                
+                const cakeRect = cake.getBoundingClientRect();
+                const catRect = cat.getBoundingClientRect();
+                
+                if (checkCollision(cakeRect, catRect)) {
+                    cakesEaten++;
+                    scoreElement.textContent = `Cakes: ${cakesEaten}/18`;
+                    
+                    catSize += 5;
+                    cat.style.width = catSize + 'px';
+                    cat.style.height = catSize + 'px';
+                    
+                    // Update speed based on cakes eaten
+                    currentSpeed = calculateSpeed(cakesEaten);
+                    updateSpeedIndicator(currentSpeed);
+                    
+                    resetCake();
+                    isDragging = false;
+                    
+                    if (cakesEaten >= 18) {
+                        message.style.display = 'block';
+                        message.innerHTML = "I'm so proud of you baby! 🎉<br>Happy Birthday Kiera! 🎂";
+                        message.style.left = '50%';
+                        message.style.top = '50%';
+                        message.style.transform = 'translate(-50%, -50%)';
+                    }
+                }
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            cake.style.cursor = 'grab';
+        });
+
+        // Start the game
+        moveCat();
+        updateSpeedIndicator(currentSpeed);
+    </script>
+</body>
+</html>
